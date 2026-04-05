@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AO Tech Store</title>
+
+<style>
+body { font-family: Arial; margin:0; background:#f4f6f9; }
+
+header {
+  background:#0a1f44; color:white;
+  padding:15px; display:flex; justify-content:space-between;
+}
+
+button { cursor:pointer; }
+
+.container { padding:20px; }
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card {
+  background:white; padding:15px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hidden { display:none; }
+
+input {
+  width:100%; padding:8px; margin:5px 0;
+}
+
+.cart-box {
+  position:fixed; right:20px; top:80px;
+  background:white; padding:10px;
+  border-radius:10px;
+}
+
+.admin {
+  background:#fff;
+  padding:20px;
+  margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>💻 AO Tech Store</h2>
+  <div>
+    <button onclick="showLogin()">Login</button>
+    <button onclick="logout()">Logout</button>
+    <span id="user"></span>
+  </div>
+</header>
+
+<div class="container">
+
+<h3>Owned by Augustine Ohuabunwa</h3>
+
+<h2>Products</h2>
+
+<div class="grid" id="products"></div>
+
+<!-- CART -->
+<div class="cart-box">
+  🛒 Cart (<span id="cartCount">0</span>)
+  <br><br>
+  <button onclick="checkout()">Checkout</button>
+</div>
+
+<!-- LOGIN -->
+<div id="loginBox" class="hidden">
+  <h3>Login</h3>
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- ADMIN -->
+<div id="adminPanel" class="admin hidden">
+  <h2>Admin Dashboard</h2>
+
+  <input id="pname" placeholder="Product Name">
+  <input id="pprice" placeholder="Price">
+  <button onclick="addProduct()">Add Product</button>
+</div>
+
+</div>
+
+<script>
+
+// INITIAL DATA
+let products = JSON.parse(localStorage.getItem("products")) || [
+  {name:"Laptop", price:900},
+  {name:"Printer", price:200},
+  {name:"Router", price:80}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let user = localStorage.getItem("user") || null;
+
+// RENDER PRODUCTS
+function renderProducts(){
+  let html = "";
+  products.forEach((p,i)=>{
+    html += `
+      <div class="card">
+        <h3>${p.name}</h3>
+        <p>$${p.price}</p>
+        <button onclick="addToCart(${i})">Add to Cart</button>
+      </div>
+    `;
+  });
+  document.getElementById("products").innerHTML = html;
+}
+
+renderProducts();
+
+// CART
+function addToCart(i){
+  cart.push(products[i]);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+
+function updateCart(){
+  document.getElementById("cartCount").innerText = cart.length;
+}
+updateCart();
+
+// CHECKOUT
+function checkout(){
+  if(cart.length === 0){
+    alert("Cart is empty!");
+    return;
+  }
+
+  alert("Checkout successful! Total items: " + cart.length);
+  cart = [];
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+
+// LOGIN SYSTEM (Mock)
+function showLogin(){
+  document.getElementById("loginBox").classList.toggle("hidden");
+}
+
+function login(){
+  let u = document.getElementById("username").value;
+  let p = document.getElementById("password").value;
+
+  if(u === "admin" && p === "admin123"){
+    user = "admin";
+    document.getElementById("adminPanel").classList.remove("hidden");
+  } else {
+    user = u;
+  }
+
+  localStorage.setItem("user", user);
+  document.getElementById("user").innerText = "👤 " + user;
+  alert("Login successful");
+}
+
+function logout(){
+  user = null;
+  localStorage.removeItem("user");
+  document.getElementById("user").innerText = "";
+  document.getElementById("adminPanel").classList.add("hidden");
+}
+
+// ADMIN
+function addProduct(){
+  let name = document.getElementById("pname").value;
+  let price = document.getElementById("pprice").value;
+
+  if(!name || !price){
+    alert("Enter product details");
+    return;
+  }
+
+  products.push({name, price});
+  localStorage.setItem("products", JSON.stringify(products));
+  renderProducts();
+}
+
+</script>
+
+</body>
+</html>
