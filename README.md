@@ -26,7 +26,7 @@ Unlike a basic classroom setup, this implementation aligns with **enterprise clo
 
 ## 🏗️ Architecture Diagram
 
-![Architecture Diagram]<p align="center">
+]<p align="center">
   <img src="Screenshots/architecture-diagram.png" width="700"/>
 </p>
 
