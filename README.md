@@ -79,23 +79,29 @@ Amazon S3 Bucket (Static Website Files)
 </p>
 
 
-![S3 Bucket](screenshots/S3-creation.png)
 
 ### 2. File Upload to S3
 
-![Upload File](./screenshots/upload.png)
+<p align="center">
+  <img src="Screenshots/file-upload2.png" width="700"/>
+</p>
 
 ### 3. Amplify Deployment Setup
 
-![Amplify Setup](./screenshots/amplify-setup.png)
+<p align="center">
+  <img src="Screenshots/Amplify.png" width="700"/>
+</p>
 
 ### 4. Successful Deployment
 
-![Deployment](./screenshots/deployment.png)
+<p align="center">
+  <img src="Screenshots/Amplify2.png" width="700"/>
+</p>
 
 ### 5. Live Website Output
-
-![Website](./screenshots/output.png)
+<p align="center">
+  <img src="Screenshots/Hosted-website.png" width="700"/>
+</p>
 
 ---
 
