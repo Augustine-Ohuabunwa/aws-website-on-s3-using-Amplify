@@ -75,7 +75,7 @@ Amazon S3 Bucket (Static Website Files)
 
 ### 1. S3 Bucket Creation
 <p align="center">
-  <img src="Screenshots/architecture-diagram.png" width="700"/>
+  <img src="Screenshots/S3-creation.png" width="700"/>
 </p>
 
 
