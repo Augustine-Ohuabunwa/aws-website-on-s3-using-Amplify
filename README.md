@@ -75,7 +75,7 @@ Amazon S3 Bucket (Static Website Files)
 
 ### 1. S3 Bucket Creation
 
-![S3 Bucket](./screenshots/s3-bucket.png)
+![S3 Bucket](./screenshots/S3-creation.png)
 
 ### 2. File Upload to S3
 
