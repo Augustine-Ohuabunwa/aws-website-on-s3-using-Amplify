@@ -1,19 +1,38 @@
-📦 Enterprise Static Website Hosting on AWS (S3 + Amplify)
-📖 Overview
+# 📦 Enterprise Static Website Hosting on AWS (S3 + Amplify)
 
-This project demonstrates how to design and deploy a secure, scalable, and production-ready static website hosting solution on AWS using:
+![AWS](https://img.shields.io/badge/AWS-S3%20%7C%20Amplify-orange)
+![Architecture](https://img.shields.io/badge/Architecture-Serverless-blue)
+![Status](https://img.shields.io/badge/Project-Production--Ready-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Amazon S3 for storage
-AWS Amplify for CI/CD deployment and hosting
-AWS-managed security controls (encryption, access policies)
+---
 
-Unlike a basic classroom setup, this implementation aligns with enterprise cloud architecture standards, including:
+## 📖 Overview
 
-Security-first configuration
-Version-controlled deployments
-Scalable hosting
-Automated delivery pipeline
-🏗️ Architecture Overview
+This project demonstrates how to design and deploy a **secure, scalable, and production-ready static website hosting solution on AWS** using:
+
+* Amazon S3 for object storage
+* AWS Amplify for CI/CD deployment and hosting
+* AWS-managed security controls (encryption, IAM, access policies)
+
+Unlike a basic classroom setup, this implementation aligns with **enterprise cloud architecture standards**, including:
+
+* 🔐 Security-first configuration
+* 🔄 Version-controlled deployments
+* 📈 Scalable hosting
+* ⚙️ Automated delivery pipeline
+
+---
+
+## 🏗️ Architecture Diagram
+
+![Architecture Diagram](./architecture-diagram.png)
+
+---
+
+## 🏗️ Architecture Overview
+
+```
 User (Browser)
      │
      ▼
@@ -25,27 +44,70 @@ Amazon S3 Bucket (Static Website Files)
      ├── index.html
      ├── assets/
      └── versioned objects
-Key Design Principles
-Decoupled architecture (storage vs delivery)
-Managed services only (no server maintenance)
-High availability by default
-Pay-as-you-go cost model
-🚀 Features
-✅ Static website hosting via S3
-✅ CI/CD deployment using Amplify
-✅ Versioning enabled for rollback capability
-✅ Default encryption (SSE-S3)
-✅ Fine-grained access control (bucket policies)
-✅ Globally distributed delivery (via Amplify CDN)
-✅ HTTPS endpoint out-of-the-box
-🛠️ Prerequisites
-AWS Account
-IAM user with permissions for:
-S3
-Amplify
-CloudWatch (optional for monitoring)
-Basic knowledge of AWS Console or CLI
-📂 Project Structure
+```
+
+---
+
+## 🎯 Key Design Principles
+
+* Decoupled architecture (storage vs delivery)
+* Fully managed services (no infrastructure maintenance)
+* High availability by default
+* Pay-as-you-go cost model
+
+---
+
+## 🚀 Features
+
+* ✅ Static website hosting via S3
+* ✅ CI/CD deployment using Amplify
+* ✅ Versioning enabled (rollback capability)
+* ✅ Default encryption (SSE-S3)
+* ✅ Fine-grained access control (IAM & bucket policies)
+* ✅ Global content delivery (CDN via Amplify)
+* ✅ HTTPS endpoint out-of-the-box
+
+---
+
+## 📸 Project Screenshots
+
+### 1. S3 Bucket Creation
+
+![S3 Bucket](./screenshots/s3-bucket.png)
+
+### 2. File Upload to S3
+
+![Upload File](./screenshots/upload.png)
+
+### 3. Amplify Deployment Setup
+
+![Amplify Setup](./screenshots/amplify-setup.png)
+
+### 4. Successful Deployment
+
+![Deployment](./screenshots/deployment.png)
+
+### 5. Live Website Output
+
+![Website](./screenshots/output.png)
+
+---
+
+## 🛠️ Prerequisites
+
+* AWS Account
+* IAM user with permissions for:
+
+  * Amazon S3
+  * AWS Amplify
+  * CloudWatch (optional)
+* Basic knowledge of AWS Console or CLI
+
+---
+
+## 📂 Project Structure
+
+```
 project-root/
 │
 ├── index.html
@@ -53,63 +115,90 @@ project-root/
 │   ├── css/
 │   ├── js/
 │   └── images/
+├── screenshots/
 └── README.md
-⚙️ Step-by-Step Implementation
-1. Create S3 Bucket
-Log in to AWS Management Console
-Navigate to Amazon S3
-Click Create Bucket
-Configuration:
-Setting	Value	Rationale
-Bucket Type	General Purpose	Optimized for web workloads
-Bucket Name	globally unique	Required by AWS DNS
-ACLs	Disabled	Prevent legacy access issues
-Public Access	Temporarily Allowed	Required for static hosting
-Versioning	Enabled	Enables rollback & audit
-Encryption	Enabled (default)	Data protection at rest
-Object Lock	Disabled	Optional compliance feature
-2. Upload Website Files
-Open the bucket
-Click Upload
-Add index.html and related assets
-Click Upload
-3. Enable Static Hosting via Amplify
+```
 
-Instead of exposing S3 directly (not recommended in enterprise setups), we use:
+---
 
-👉 AWS Amplify
+## ⚙️ Step-by-Step Implementation
 
-Steps:
-Go to Amplify Console
-Click Create App
-Choose:
-Deployment method: Amazon S3
-Select your bucket
-Choose root or prefix
-Click Save and Deploy
-4. Deployment Output
-Amplify provisions:
-Hosting environment
-HTTPS endpoint
-CDN distribution
-Access policy for S3
+### 1️⃣ Create S3 Bucket
 
-Example Output:
+* Navigate to Amazon S3
+* Click Create Bucket
 
+#### Configuration
+
+| Setting       | Value             | Rationale                   |
+| ------------- | ----------------- | --------------------------- |
+| Bucket Type   | General Purpose   | Optimized for web workloads |
+| Bucket Name   | Globally unique   | Required by AWS DNS         |
+| ACLs          | Disabled          | Avoid legacy access issues  |
+| Public Access | Temporary         | Required for initial setup  |
+| Versioning    | Enabled           | Rollback capability         |
+| Encryption    | Enabled (default) | Data protection at rest     |
+| Object Lock   | Disabled          | Optional compliance feature |
+
+---
+
+### 2️⃣ Upload Website Files
+
+* Open the bucket
+* Click Upload
+* Add index.html and assets
+* Click Upload
+
+---
+
+### 3️⃣ Deploy with Amplify
+
+Instead of exposing S3 directly (anti-pattern in production), use Amplify:
+
+* Navigate to AWS Amplify Console
+* Click Create App
+* Select Amazon S3 as source
+* Choose your bucket
+* Click Save and Deploy
+
+---
+
+### 4️⃣ Deployment Output
+
+Amplify automatically provisions:
+
+* Hosting environment
+* HTTPS endpoint
+* CDN distribution
+* Secure access to S3
+
+Example:
+
+```
 https://main.dxxxxxxxx.amplifyapp.com
-🔐 Security Considerations (Enterprise-Grade)
-❗ Important Note
+```
 
-The classroom approach disables “Block Public Access”. In production, this is NOT recommended.
+---
 
-✅ Recommended Secure Pattern
-Layer	Best Practice
-S3 Bucket	Private (no public access)
-Access	Only via Amplify
-Encryption	SSE-S3 or SSE-KMS
-IAM	Least privilege policies
-Logging	Enable access logs
-Example Bucket Policy (Amplify Access Only)
+## 🔐 Security Considerations (Enterprise-Grade)
+
+### ❗ Important
+
+Disabling Block Public Access is NOT recommended in production.
+
+### ✅ Recommended Secure Architecture
+
+| Layer      | Best Practice      |
+| ---------- | ------------------ |
+| S3 Bucket  | Private            |
+| Access     | Only via Amplify   |
+| Encryption | SSE-S3 or SSE-KMS  |
+| IAM        | Least privilege    |
+| Logging    | Enable access logs |
+
+### 🔐 Example Bucket Policy
+
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -124,190 +213,117 @@ Example Bucket Policy (Amplify Access Only)
     }
   ]
 }
-📊 Scalability & Performance
-Component	Scaling Model
-S3	Auto-scales infinitely
-Amplify CDN	Global edge locations
-Requests	No server bottleneck
-💰 Cost Optimization
-S3:
-Pay per storage + requests
-Amplify:
-Pay per build & bandwidth
-Optimization Tips:
-Enable lifecycle policies (archive old versions)
-Compress assets (gzip, Brotli)
-Use cache-control headers
-🔄 CI/CD Enhancement (Enterprise Upgrade)
+```
 
-Instead of manual uploads:
+---
 
-Connect Amplify to:
-GitHub repository
-Enable:
-Auto-build on commit
-Branch-based deployments
+## 📊 Scalability & Performance
 
-👉 GitHub integration enables:
+| Component   | Scaling Model       |
+| ----------- | ------------------- |
+| S3          | Infinite auto-scale |
+| Amplify CDN | Global edge network |
+| Requests    | No bottleneck       |
 
-Continuous deployment
-Version tracking
-Team collaboration
-🧪 Testing & Validation
-Verify:
-Website loads via Amplify URL
-HTTPS is active
-Assets load correctly
-Test failure scenarios:
-Delete object → confirm version recovery
-Upload new version → confirm deployment
-⚠️ Common Pitfalls
-Issue	Cause	Fix
-Access Denied	Incorrect bucket policy	Validate IAM + policy
-404 Errors	Missing index.html	Set default root object
-Slow load	Large assets	Optimize & compress
-Public exposure	Misconfigured access	Use private bucket
-📈 Future Enhancements
-Add:
-Amazon CloudFront (advanced CDN control)
-AWS WAF (security layer)
-Amazon Route 53 (custom domain)
-AWS Certificate Manager (SSL/TLS)
-🧠 Key Learnings
-Separation of concerns improves scalability
-Public S3 buckets are a security anti-pattern
-Amplify simplifies frontend DevOps
-Versioning is critical for resilience
-Managed services reduce operational overhead
-👨‍💻 Author
+---
+
+## 💰 Cost Optimization
+
+### Pricing Model
+
+* S3 → Storage + requests
+* Amplify → Build + bandwidth
+
+### Optimization Tips
+
+* Enable lifecycle policies
+* Compress assets (Gzip/Brotli)
+* Use cache-control headers
+
+---
+
+## 🔄 CI/CD Enhancement (Enterprise Upgrade)
+
+Replace manual uploads with automated pipelines:
+
+* Connect Amplify to GitHub
+* Enable:
+
+  * Auto-build on commit
+  * Branch-based deployments
+
+### Benefits
+
+* Continuous deployment
+* Version control
+* Team collaboration
+
+---
+
+## 🧪 Testing & Validation
+
+### Verify
+
+* Website loads via Amplify URL
+* HTTPS is enabled
+* Assets render correctly
+
+### Test Scenarios
+
+* Delete object → Validate version recovery
+* Upload new version → Confirm deployment
+
+---
+
+## ⚠️ Common Pitfalls
+
+| Issue           | Cause                | Fix                     |
+| --------------- | -------------------- | ----------------------- |
+| Access Denied   | Incorrect policy     | Validate IAM & policy   |
+| 404 Errors      | Missing index.html   | Set default root object |
+| Slow Load       | Large assets         | Optimize files          |
+| Public Exposure | Misconfigured access | Make bucket private     |
+
+---
+
+## 📈 Future Enhancements
+
+* Amazon CloudFront
+* AWS WAF
+* Amazon Route 53
+* AWS Certificate Manager
+
+---
+
+## 🧠 Key Learnings
+
+* Separation of concerns improves scalability
+* Public S3 buckets are a security anti-pattern
+* Amplify simplifies frontend DevOps
+* Versioning ensures resilience
+* Managed services reduce operational overhead
+
+---
+
+## 👨‍💻 Author
 
 Your Name
 AWS Solutions Architect (Project Simulation)
 
-📜 License
+---
 
-This project is for educational and portfolio purposes.
+## 📜 License
 
-⭐ Final Note
+This project is licensed under the MIT License.
 
-This project evolves a basic S3 upload exercise into a production-grade cloud architecture suitable for:
+---
 
-Portfolio demonstration
-Technical interviews
-Entry-level cloud engineering roles
+## ⭐ Final Note
 
-If you want, I can also:
+This project transforms a basic S3 exercise into a production-grade cloud architecture suitable for:
 
-Convert this into a Terraform or CloudFormation project
-Add architecture diagrams (draw.io / Lucidchart)
-Turn this into a GitHub portfolio repo with badges and CI/CD pipeline
-Add architecture diagrams 
-Edit
-Add this project diagram inside the README and also project screenshots
-Enterprise Static Website Hosting Readme
-📦 Enterprise Static Website Hosting on AWS (S3 + Amplify)
-📖 Overview
+* Portfolio demonstration
+* Technical interviews
+* Entry-level cloud engineering roles
 
-This project demonstrates how to design and deploy a secure, scalable, and production-ready static website hosting solution on AWS using Amazon S3 and AWS Amplify.
-
-🏗️ Architecture Diagram
-
-
-
-
-Description
-Users access the application via HTTPS
-AWS Amplify provides hosting, CI/CD, and CDN
-Amazon S3 stores static assets securely
-Encryption, versioning, and access control are enforced
-📸 Project Screenshots
-1. S3 Bucket Creation
-
-
-
-
-2. File Upload to S3
-
-
-
-
-3. Amplify Deployment Setup
-
-
-
-
-4. Successful Deployment
-
-
-
-
-5. Live Website Output
-
-
-
-
-🏗️ Architecture Overview
-
-User (Browser) │ ▼ AWS Amplify Hosting (CDN + HTTPS) │ ▼ Amazon S3 Bucket (Static Website Files)
-
-🚀 Features
-Static website hosting via S3
-CI/CD deployment using Amplify
-Versioning enabled
-Encryption enabled
-Secure access via Amplify
-🛠️ Implementation Steps
-1. Create S3 Bucket
-Navigate to S3
-Create bucket with unique name
-Enable versioning
-Keep encryption enabled
-2. Upload Files
-Upload index.html
-Upload assets folder
-3. Deploy with Amplify
-Create Amplify app
-Select S3 as source
-Deploy application
-🔐 Security Best Practices
-Keep S3 bucket private
-Use Amplify for controlled access
-Enable encryption
-Apply least privilege IAM roles
-📈 Future Improvements
-Add CloudFront
-Configure custom domain
-Integrate CI/CD with GitHub
-Add monitoring and logging
-👨‍💻 Author
-
-Your Name
-
-📜 License
-
-For educational and portfolio use only
-
-I’ve embedded the architecture diagram and added structured placeholders for project screenshots directly into a professional README format in the canvas.
-
-What you should do next
-
-To make this fully recruiter-ready on GitHub:
-
-Add your files to the repo
-
-/architecture-diagram.png
-/screenshots/
-    s3-bucket.png
-    upload.png
-    amplify-setup.png
-    deployment.png
-    output.png
-Take real screenshots from your AWS console
-Capture:
-S3 bucket dashboard
-Upload process
-Amplify setup page
-Deployment success screen
-Live website
-Replace placeholders
-Ensure filenames match exactly what’s in the README.
+---
